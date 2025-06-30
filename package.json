@@ -1,0 +1,13 @@
+{
+  "name": "claude-todo-app",
+  "version": "1.0.0",
+  "description": "A basic Node.js application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

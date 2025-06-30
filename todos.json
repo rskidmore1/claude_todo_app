@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1751260231271",
+    "text": "Test todo item",
+    "completed": false,
+    "createdAt": "2025-06-30T05:10:31.271Z"
+  },
+  {
+    "id": "1751260559719",
+    "text": "Finish writing the report",
+    "completed": false,
+    "createdAt": "2025-06-30T05:15:59.719Z"
+  }
+]
