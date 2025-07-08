@@ -76,6 +76,19 @@ function deleteTodo(id) {
   }
 }
 
+function findTodoByName(name) {
+  if (!name || name.trim() === '') {
+    return { success: false, error: 'Todo name cannot be empty' };
+  }
+
+  const todos = loadTodos();
+  const matchingTodos = todos.filter(todo => 
+    todo.text.toLowerCase().includes(name.trim().toLowerCase())
+  );
+
+  return { success: true, todos: matchingTodos };
+}
+
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
@@ -111,10 +124,17 @@ const server = http.createServer((req, res) => {
     res.statusCode = result.success ? 200 : 404;
     res.setHeader('Content-Type', 'application/json');
     res.end(JSON.stringify(result));
+  } else if (req.method === 'GET' && url.pathname.startsWith('/find-todo/')) {
+    const name = decodeURIComponent(url.pathname.split('/find-todo/')[1]);
+    const result = findTodoByName(name);
+
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(result));
   } else {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/plain');
-    res.end('Todo List App\n\nPOST /add-todo - Add a new todo\nGET /todos - Get all todos\nDELETE /delete-todo/:id - Delete a todo\n');
+    res.end('Todo List App\n\nPOST /add-todo - Add a new todo\nGET /todos - Get all todos\nDELETE /delete-todo/:id - Delete a todo\nGET /find-todo/:name - Find todos by name\n');
   }
 });
 
